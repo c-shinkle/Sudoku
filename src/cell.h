@@ -1,4 +1,4 @@
-typedef struct cell_t{
-  char value;
-  short possibilities;
-};
+typedef struct {
+  int value;
+  int poss_vals;
+} cell_t;

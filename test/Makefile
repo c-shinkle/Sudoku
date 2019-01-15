@@ -1,4 +1,2 @@
 make:
-	gcc -Wall -o ../bin/test test.c -lcunit
-run_test:
-	../bin/test
+	gcc -Wall -o test ../src/board.o test.c -lcunit
