@@ -4,7 +4,7 @@ LDFLAGS =
 SOURCEFILES = board.c sudoku.c
 SOURCES = $(SOURCEFILES)
 OBJECTS = $(SOURCES:.c=.o)
-EXECUTABLE = sudoku
+EXECUTABLE = ../sudoku
 
 all: $(SOURCES) $(EXECUTABLE)
 
@@ -15,4 +15,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -g -o $@
 
 clean:
-	rm -rf sudoku $(OBJECTS)
+	rm -rf ../sudoku $(OBJECTS)

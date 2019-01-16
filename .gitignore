@@ -48,7 +48,8 @@
 .tmp_versions/
 
 # binaries
-bin/
+sudoku
+unit_test
 
 modules.order
 Module.symvers
