@@ -8,3 +8,6 @@ typedef struct {
 void init_board(board_t * board);
 void set_cell_val(board_t * board, int row, int col, int val);
 int get_cell_val(board_t * board, int row, int col);
+const char * print_row(board_t * board, int row);
+const char * print_blank_row();
+char * print_board(board_t * board);

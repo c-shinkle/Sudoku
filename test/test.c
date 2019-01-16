@@ -23,10 +23,24 @@ void init_board_test() {
   CU_PASS("All of board.grid's values were initialized to 0");
 }
 
-void access_board_test() {
+void getter_board_test() {
   board_t board;
   init_board(&board);
   CU_ASSERT_EQUAL(get_cell_val(&board, 0, 0), 0);
+}
+
+void print_row_test() {
+  board_t board;
+  init_board(&board);
+  int i;
+  for(i=0;i<BOARD_SIZE;i++)
+    set_cell_val(&board, 0, i, i+1);
+  const char * result = print_row(&board, 0);
+  CU_ASSERT_STRING_EQUAL(result, "|123|456|789|");
+}
+
+void print_blank_row_test() {
+  CU_ASSERT_STRING_EQUAL(print_blank_row(), "------------");
 }
 
 int main(int argc, char *argv[])
@@ -43,7 +57,9 @@ int main(int argc, char *argv[])
 
 	CU_ADD_TEST(suite, pass_test);
   CU_ADD_TEST(suite, init_board_test);
-  CU_ADD_TEST(suite, access_board_test);
+  CU_ADD_TEST(suite, getter_board_test);
+  CU_ADD_TEST(suite, print_blank_row_test);
+  CU_ADD_TEST(suite, print_row_test);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
