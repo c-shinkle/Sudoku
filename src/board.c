@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 static const board_t empty_struct;
-const char * BLANK_ROW = "------------";
+const char * BLANK_ROW = "------------\n";
 
 void init_board(board_t * board) {
   *board = empty_struct;
@@ -17,28 +17,36 @@ int get_cell_val(board_t * board, int row, int col) {
   return board->grid[row][col].value;
 }
 
-const char * print_row(board_t * board, int row) {
+const char * print_row(board_t * board, char * buffer, int row) {
   int col, i;
-  char * str = malloc(sizeof(char)*14);
-  //error with malloc
-  if (!str)
-    return NULL;
-  str[13] = 0;
   for(col=i=0;i<13;i++) {
     if (i%4==0) {
-      str[i] = '|';
+      buffer[i] = '|';
     } else {
       //ascii-48 == '0'
-      str[i] = get_cell_val(board, row, col++) + 48;
+      buffer[i] = get_cell_val(board, row, col++) + 48;
     }
   }
-  return str;
+  buffer[13] = '\n';
+  buffer[14] = 0;
+  return buffer;
 }
 
 const char * print_blank_row() {
   return BLANK_ROW;
 }
 
-char * print_board(board_t * board) {
-  return NULL;
+const char * print_board(board_t * board) {
+  char buffer[14];
+  char * result = malloc(sizeof(char)*183);
+  result[0] = 0;
+  int i, row;
+  for(i=row=0;i<13;i++) {
+    if (i%4==0) {
+      strcat(result, print_blank_row());
+    } else {
+      strcat(result, print_row(board, buffer, row++));
+    }
+  }
+  return result;
 }

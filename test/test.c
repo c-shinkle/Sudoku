@@ -32,17 +32,41 @@ void getter_board_test() {
 void print_row_test() {
   board_t board;
   init_board(&board);
+  char buffer[14];
   int i;
   for(i=0;i<BOARD_SIZE;i++)
     set_cell_val(&board, 0, i, i+1);
-  const char * result = print_row(&board, 0);
-  CU_ASSERT_STRING_EQUAL(result, "|123|456|789|");
+  const char * result = print_row(&board, buffer, 0);
+  CU_ASSERT_STRING_EQUAL(result, "|123|456|789|\n");
 }
 
 void print_blank_row_test() {
-  CU_ASSERT_STRING_EQUAL(print_blank_row(), "------------");
+  CU_ASSERT_STRING_EQUAL(print_blank_row(), "------------\n");
 }
 
+char * zero_board() {
+  return 
+"------------\n\
+|000|000|000|\n\
+|000|000|000|\n\
+|000|000|000|\n\
+------------\n\
+|000|000|000|\n\
+|000|000|000|\n\
+|000|000|000|\n\
+------------\n\
+|000|000|000|\n\
+|000|000|000|\n\
+|000|000|000|\n\
+------------\n";
+}
+
+void print_board_test() {
+  board_t board;
+  init_board(&board);
+  char * test1 = zero_board();
+  CU_ASSERT_STRING_EQUAL(print_board(&board), test1);
+}
 int main(int argc, char *argv[])
 {
 	if (CUE_SUCCESS != CU_initialize_registry())
@@ -60,6 +84,7 @@ int main(int argc, char *argv[])
   CU_ADD_TEST(suite, getter_board_test);
   CU_ADD_TEST(suite, print_blank_row_test);
   CU_ADD_TEST(suite, print_row_test);
+  CU_ADD_TEST(suite, print_board_test);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
