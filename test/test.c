@@ -46,27 +46,97 @@ void print_blank_row_test() {
 
 char * zero_board() {
   return 
-"------------\n\
-|000|000|000|\n\
-|000|000|000|\n\
-|000|000|000|\n\
-------------\n\
-|000|000|000|\n\
-|000|000|000|\n\
-|000|000|000|\n\
-------------\n\
-|000|000|000|\n\
-|000|000|000|\n\
-|000|000|000|\n\
-------------\n";
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n";
 }
 
-void print_board_test() {
+void print_board_test0() {
   board_t board;
   init_board(&board);
-  char * test1 = zero_board();
-  CU_ASSERT_STRING_EQUAL(print_board(&board), test1);
+  char * test_board =
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "|000|000|000|\n"
+    "------------\n";
+  CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
 }
+
+void print_board_test1() {
+  board_t board;
+  init_board(&board);
+  int i;
+  for(i=0;i<BOARD_SIZE;i++) {
+    set_cell_val(&board, i, i, i+1);
+  }
+  CU_ASSERT_STRING_EQUAL(print_board(&board), 
+    "------------\n"
+    "|100|000|000|\n"
+    "|020|000|000|\n"
+    "|003|000|000|\n"
+    "------------\n"
+    "|000|400|000|\n"
+    "|000|050|000|\n"
+    "|000|006|000|\n"
+    "------------\n"
+    "|000|000|700|\n"
+    "|000|000|080|\n"
+    "|000|000|009|\n"
+    "------------\n"  
+  );
+}
+
+void print_board_test2() {
+  board_t board;
+  init_board(&board);
+  int values[BOARD_SIZE*BOARD_SIZE] = {
+    1,1,1,1,1,1,1,1,1,
+    2,2,2,2,2,2,2,2,2,
+    3,3,3,3,3,3,3,3,3,
+    4,4,4,4,4,4,4,4,4,
+    5,5,5,5,5,5,5,5,5,
+    6,6,6,6,6,6,6,6,6,
+    7,7,7,7,7,7,7,7,7,
+    8,8,8,8,8,8,8,8,8,
+    9,9,9,9,9,9,9,9,9
+  };
+  set_board(&board, (int *)values);
+  char * test_board =
+    "------------\n"
+    "|111|111|111|\n"
+    "|222|222|222|\n"
+    "|333|333|333|\n"
+    "------------\n"
+    "|444|444|444|\n"
+    "|555|555|555|\n"
+    "|666|666|666|\n"
+    "------------\n"
+    "|777|777|777|\n"
+    "|888|888|888|\n"
+    "|999|999|999|\n"
+    "------------\n";
+  CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
+}
+
 int main(int argc, char *argv[])
 {
 	if (CUE_SUCCESS != CU_initialize_registry())
@@ -84,7 +154,9 @@ int main(int argc, char *argv[])
   CU_ADD_TEST(suite, getter_board_test);
   CU_ADD_TEST(suite, print_blank_row_test);
   CU_ADD_TEST(suite, print_row_test);
-  CU_ADD_TEST(suite, print_board_test);
+  CU_ADD_TEST(suite, print_board_test0);
+  CU_ADD_TEST(suite, print_board_test1);
+  CU_ADD_TEST(suite, print_board_test2);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();

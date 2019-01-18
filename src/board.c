@@ -50,3 +50,12 @@ const char * print_board(board_t * board) {
   }
   return result;
 }
+
+void set_board(board_t * board, int * values) {
+  int row, col;
+  for(row=0;row<BOARD_SIZE;row++) {
+    for(col=0;col<BOARD_SIZE;col++) {
+      set_cell_val(board, row, col, values[row*BOARD_SIZE+col]);
+    }
+  }
+}
