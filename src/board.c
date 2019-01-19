@@ -59,3 +59,19 @@ void set_board(board_t * board, int * values) {
     }
   }
 }
+
+cell_t * get_row(board_t * board, cell_t * buffer, int row) {
+  int i;
+  for(i=0;i<BOARD_SIZE;i++) {
+    buffer[i] = board->grid[row][i];
+  }
+  return buffer;
+} 
+
+cell_t * get_col(board_t * board, cell_t * buffer, int col) {
+  int i;
+  for(i=0;i<BOARD_SIZE;i++) {
+    buffer[i] = board->grid[i][col];
+  }
+  return buffer;
+}

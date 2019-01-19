@@ -44,23 +44,6 @@ void print_blank_row_test() {
   CU_ASSERT_STRING_EQUAL(print_blank_row(), "------------\n");
 }
 
-char * zero_board() {
-  return 
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n";
-}
-
 void print_board_test0() {
   board_t board;
   init_board(&board);
@@ -88,7 +71,7 @@ void print_board_test1() {
   for(i=0;i<BOARD_SIZE;i++) {
     set_cell_val(&board, i, i, i+1);
   }
-  CU_ASSERT_STRING_EQUAL(print_board(&board), 
+  CU_ASSERT_STRING_EQUAL(print_board(&board),
     "------------\n"
     "|100|000|000|\n"
     "|020|000|000|\n"
@@ -119,7 +102,7 @@ void print_board_test2() {
     8,8,8,8,8,8,8,8,8,
     9,9,9,9,9,9,9,9,9
   };
-  set_board(&board, (int *)values);
+  set_board(&board, values);
   char * test_board =
     "------------\n"
     "|111|111|111|\n"
@@ -135,6 +118,52 @@ void print_board_test2() {
     "|999|999|999|\n"
     "------------\n";
   CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
+}
+
+void get_row_test() {
+  board_t board;
+  init_board(&board);
+  int i;
+  for(i=0;i<BOARD_SIZE;i++)
+    set_cell_val(&board, 0, i, i+1);
+
+  cell_t actual[BOARD_SIZE];
+  get_row(&board, actual, 0);
+
+  cell_t expected[BOARD_SIZE];
+  for(i=0;i<BOARD_SIZE;i++) {
+    expected[i].value = i+1;
+    expected[i].poss_vals = 0;
+  }
+
+  for(i=0;i<BOARD_SIZE;i++) {
+    if (actual[i].value!=expected[i].value)
+      CU_FAIL("All cells in row weren't equal.");
+  }
+  CU_PASS();
+}
+
+void get_col_test() {
+  board_t board;
+  init_board(&board);
+  int i;
+  for(i=0;i<BOARD_SIZE;i++)
+    set_cell_val(&board, i, 0, i+1);
+
+  cell_t actual[BOARD_SIZE];
+  get_col(&board, actual, 0);
+
+  cell_t expected[BOARD_SIZE];
+  for(i=0;i<BOARD_SIZE;i++) {
+    expected[i].value = i+1;
+    expected[i].poss_vals = 0;
+  }
+
+  for(i=0;i<BOARD_SIZE;i++) {
+    if (actual[i].value!=expected[i].value)
+      CU_FAIL("All cells in row weren't equal.");
+  }
+  CU_PASS();
 }
 
 int main(int argc, char *argv[])
@@ -157,6 +186,8 @@ int main(int argc, char *argv[])
   CU_ADD_TEST(suite, print_board_test0);
   CU_ADD_TEST(suite, print_board_test1);
   CU_ADD_TEST(suite, print_board_test2);
+  CU_ADD_TEST(suite, get_row_test);
+  CU_ADD_TEST(suite, get_col_test);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();
