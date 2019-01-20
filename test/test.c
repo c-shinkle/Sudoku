@@ -133,7 +133,7 @@ void get_row_test() {
   cell_t expected[BOARD_SIZE];
   for(i=0;i<BOARD_SIZE;i++) {
     expected[i].value = i+1;
-    expected[i].poss_vals = 0;
+    expected[i].poss = 0;
   }
 
   for(i=0;i<BOARD_SIZE;i++) {
@@ -156,7 +156,7 @@ void get_col_test() {
   cell_t expected[BOARD_SIZE];
   for(i=0;i<BOARD_SIZE;i++) {
     expected[i].value = i+1;
-    expected[i].poss_vals = 0;
+    expected[i].poss = 0;
   }
 
   for(i=0;i<BOARD_SIZE;i++) {
@@ -164,6 +164,18 @@ void get_col_test() {
       CU_FAIL("All cells in row weren't equal.");
   }
   CU_PASS();
+}
+
+void set_poss_test() {
+  cell_t cell = {0};
+  set_poss(&cell, ONE);
+  CU_TEST(cell.poss == 0b1);
+}
+
+void get_poss_test() {
+  cell_t cell = {0, 2};
+  short poss = get_poss(&cell);
+  CU_TEST(poss == 0b10);
 }
 
 int main(int argc, char *argv[])
@@ -188,6 +200,8 @@ int main(int argc, char *argv[])
   CU_ADD_TEST(suite, print_board_test2);
   CU_ADD_TEST(suite, get_row_test);
   CU_ADD_TEST(suite, get_col_test);
+  CU_ADD_TEST(suite, set_poss_test);
+  CU_ADD_TEST(suite, get_poss_test);
 
 	CU_basic_set_mode(CU_BRM_VERBOSE);
 	CU_basic_run_tests();

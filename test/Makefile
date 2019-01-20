@@ -1,5 +1,5 @@
 make:
-	gcc -Wall -o ../unit_test ../src/board.o test.c -lcunit
+	gcc -Wall -o ../unit_test ../src/board.o ../src/cell.o test.c -lcunit
 
 clean:
 	rm ../unit_test
