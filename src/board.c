@@ -60,6 +60,15 @@ void set_board(board_t * board, int * values) {
   }
 }
 
+void set_board_string(board_t * board, char * str) {
+  if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
+    return;
+  int i, values[BOARD_SIZE*BOARD_SIZE];
+  for(i=0;i<BOARD_SIZE*BOARD_SIZE;i++)
+    values[i] = str[i]-48;
+  set_board(board, values);
+}
+
 cell_t * get_row(board_t * board, cell_t * buffer, int row) {
   int i;
   for(i=0;i<BOARD_SIZE;i++) {

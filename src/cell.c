@@ -1,6 +1,6 @@
 #include "cell.h" 
 
-void set_poss(cell_t * cell, enum poss_t poss) {
+void set_poss(cell_t * cell, poss_t poss) {
   cell->poss |= poss;
 }
 
