@@ -1,6 +1,7 @@
 #include "board.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static const board_t empty_struct;
 const char * BLANK_ROW = "------------\n";
@@ -67,6 +68,33 @@ void set_board_string(board_t * board, char * str) {
   for(i=0;i<BOARD_SIZE*BOARD_SIZE;i++)
     values[i] = str[i]-48;
   set_board(board, values);
+}
+
+int set_board_file(board_t * board, char * filename) {
+  FILE * file;
+  int i;
+  size_t len;
+  ssize_t nread;
+  char * line = NULL, str[BOARD_SIZE*BOARD_SIZE+1];
+
+  file = fopen(filename, "r");
+  if (!file)
+    return -1;
+  
+  for(i=0;(nread = getline(&line, &len, file) != -1); i++) {
+    if (nread!=9 || nread!=10)
+      return -1;
+    strncat(str, line, 9);
+  }
+  
+  free(line);
+  fclose(file);
+
+  if (i!=9)
+    return -1;
+  
+  set_board_string(board, line);
+  return 0;
 }
 
 cell_t * get_row(board_t * board, cell_t * buffer, int row) {

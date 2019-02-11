@@ -1,6 +1,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "../src/board.h"
+#include "../src/solver.h"
 
 #define CU_ADD_TEST(suite, test) (CU_add_test(suite, #test, (CU_TestFunc)test))
 
