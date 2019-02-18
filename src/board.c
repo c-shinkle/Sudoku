@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 static const board_t empty_struct;
 const char * BLANK_ROW = "------------\n";
@@ -75,7 +76,8 @@ int set_board_file(board_t * board, char * filename) {
   int i;
   size_t len;
   ssize_t nread;
-  char * line = NULL, str[BOARD_SIZE*BOARD_SIZE+1];
+  char * line = NULL;
+  char str[BOARD_SIZE*BOARD_SIZE+1] = "";
 
   file = fopen(filename, "r");
   if (!file)
@@ -93,7 +95,7 @@ int set_board_file(board_t * board, char * filename) {
   if (i!=9)
     return -1;
   
-  set_board_string(board, line);
+  set_board_string(board, str);
   return 0;
 }
 

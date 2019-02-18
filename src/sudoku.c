@@ -6,8 +6,9 @@ int main(int argc, char * argv[])
 {
   board_t board;
   init_board(&board);
-  const char * result = print_board(&board);
-  printf("%s", result);
-  free((void *)result);
+  const char * ptr = set_board_file(&board, ".board_data") ? 
+    "Something went wrong with set_board_file" :
+    print_board(&board);
+  printf("%s\n", ptr);
   return 0;
 }
