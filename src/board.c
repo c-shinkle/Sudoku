@@ -72,30 +72,19 @@ void set_board_string(board_t * board, char * str) {
 }
 
 int set_board_file(board_t * board, char * filename) {
-  FILE * file;
+  FILE * file = fopen(filename, "r");
+  char result[BOARD_SIZE*BOARD_SIZE+1];
+  char buffer[BOARD_SIZE+1];
   int i;
-  size_t len;
-  ssize_t nread;
-  char * line = NULL;
-  char str[BOARD_SIZE*BOARD_SIZE+1] = "";
-
-  file = fopen(filename, "r");
   if (!file)
     return -1;
-  
-  for(i=0;(nread = getline(&line, &len, file) != -1); i++) {
-    if (nread!=9 || nread!=10)
-      return -1;
-    strncat(str, line, 9);
+  result[0] = 0;
+  for(i=0;i<BOARD_SIZE;i++) {
+    fscanf(file, "%s", buffer);
+    strncat(result, buffer, BOARD_SIZE);
   }
-  
-  free(line);
   fclose(file);
-
-  if (i!=9)
-    return -1;
-  
-  set_board_string(board, str);
+  set_board_string(board, result);
   return 0;
 }
 
