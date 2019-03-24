@@ -15,5 +15,6 @@ typedef enum {
   NINE = 256,
 } poss_t;
 
-void set_poss(cell_t * cell, poss_t poss);
+void set_poss(cell_t * cell, char poss);
 short get_poss(cell_t * cell);
+void set_poss_enum(cell_t * cell, poss_t poss);

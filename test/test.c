@@ -254,8 +254,21 @@ void naive_solver_test() {
   CU_ASSERT_STRING_EQUAL(print_board,solution);
 }
 
-void add_solver_tests(CU_pSuite * suite) {
+void find_possible_values_test() {
+  board_t board;
+  init_board(&board);
+  if (set_board_file(&board, ".board_data")) {
+    return;
+  }
+  int row = 1;
+  int col = 4;
+  find_possible_values(&board, row, col);
+  printf("0x%x", board.grid[row][col].poss);
+  CU_TEST(board.grid[row][col].poss == 0x1c7);
+}
 
+void add_solver_tests(CU_pSuite * suite) {
+  CU_ADD_TEST(*suite, find_possible_values_test);
 }
 
 int main(int argc, char *argv[])
