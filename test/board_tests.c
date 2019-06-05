@@ -1,13 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "../src/board.h"
-#include "../src/solver.h"
-
-#define CU_ADD_TEST(suite, test) (CU_add_test(suite, #test, (CU_TestFunc)test))
-
-void pass_test(void) {
-	CU_PASS("Compilation success");
-}
 
 void init_board_test() {
   board_t board;
@@ -210,85 +203,3 @@ void get_poss_test() {
   CU_TEST(poss == 0b10);
 }
 
-void add_board_tests(CU_pSuite * suite) {
-  CU_ADD_TEST(*suite, pass_test);
-  CU_ADD_TEST(*suite, init_board_test);
-  CU_ADD_TEST(*suite, getter_board_test);
-  CU_ADD_TEST(*suite, print_blank_row_test);
-  CU_ADD_TEST(*suite, print_row_test);
-  CU_ADD_TEST(*suite, print_board_test0);
-  CU_ADD_TEST(*suite, print_board_test1);
-  CU_ADD_TEST(*suite, print_board_test2);
-  CU_ADD_TEST(*suite, set_board_string_test);
-  CU_ADD_TEST(*suite, get_row_test);
-  CU_ADD_TEST(*suite, get_col_test);
-  CU_ADD_TEST(*suite, set_poss_test);
-  CU_ADD_TEST(*suite, get_poss_test);
-}
-
-void naive_solver_test() {
-  board_t board;
-  init_board(&board);
-  char * values =
-    "058931427"
-    "432678915"
-    "917245683"
-    "296354817"
-    "581762349"
-    "743819256"
-    "129583764"
-    "865497132"
-    "374126598";
-  char * solution = 
-    "658931427"
-    "432678915"
-    "917245683"
-    "296354817"
-    "581762349"
-    "743819256"
-    "129583764"
-    "865497132"
-    "374126598";
-  set_board_string(&board, values);
-  naive_solver(&board);
-  CU_ASSERT_STRING_EQUAL(print_board,solution);
-}
-
-void find_possible_values_test() {
-  board_t board;
-  init_board(&board);
-  if (set_board_file(&board, ".board_data")) {
-    return;
-  }
-  int row = 1;
-  int col = 4;
-  find_possible_values(&board, row, col);
-  printf("0x%x", board.grid[row][col].poss);
-  CU_TEST(board.grid[row][col].poss == 0x1c7);
-}
-
-void add_solver_tests(CU_pSuite * suite) {
-  CU_ADD_TEST(*suite, find_possible_values_test);
-}
-
-int main(int argc, char *argv[])
-{
-	if (CUE_SUCCESS != CU_initialize_registry())
-      return CU_get_error();	
-  
-  CU_pSuite board_suite = CU_add_suite("board_t suite", NULL, NULL);
-  CU_pSuite solver_suite = CU_add_suite("solver suite", NULL, NULL);
-
-  if (!board_suite || !solver_suite) {
-    CU_cleanup_registry();
-    return CU_get_error();
-  }
-
-  add_board_tests(&board_suite);
-	add_solver_tests(&solver_suite);
-
-	CU_basic_set_mode(CU_BRM_VERBOSE);
-	CU_basic_run_tests();
-	CU_cleanup_registry();
-	return 0;
-}
