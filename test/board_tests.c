@@ -30,7 +30,7 @@ void print_row_test() {
   int i;
   for(i=0;i<BOARD_SIZE;i++)
     set_cell_val(&board, 0, i, i+1);
-  const char * result = print_row(&board, buffer, 0);
+  const char* result = print_row(&board, buffer, 0);
   CU_ASSERT_STRING_EQUAL(result, "|123|456|789|\n");
 }
 
@@ -41,7 +41,7 @@ void print_blank_row_test() {
 void print_board_test0() {
   board_t board;
   init_board(&board);
-  char * test_board =
+  char* test_board =
     "------------\n"
     "|000|000|000|\n"
     "|000|000|000|\n"
@@ -97,7 +97,7 @@ void print_board_test2() {
     9,9,9,9,9,9,9,9,9
   };
   set_board(&board, values);
-  char * test_board =
+  char* test_board =
     "------------\n"
     "|111|111|111|\n"
     "|222|222|222|\n"
@@ -117,7 +117,7 @@ void print_board_test2() {
 void set_board_string_test() {
   board_t board;
   init_board(&board);
-  char * str =
+  char* str =
     "111111111"
     "222222222"
     "333333333"
@@ -128,7 +128,7 @@ void set_board_string_test() {
     "888888888"
     "999999999";
   set_board_string(&board, str);
-  char * test_board =
+  char* test_board =
     "------------\n"
     "|111|111|111|\n"
     "|222|222|222|\n"
@@ -147,8 +147,9 @@ void set_board_string_test() {
 
 void get_row_test() {
   board_t board;
-  init_board(&board);
   int i;
+  init_board(&board);
+
   for(i=0;i<BOARD_SIZE;i++)
     set_cell_val(&board, 0, i, i+1);
 
@@ -162,44 +163,36 @@ void get_row_test() {
   }
 
   for(i=0;i<BOARD_SIZE;i++) {
-    if (actual[i].value!=expected[i].value)
-      CU_FAIL("All cells in row weren't equal.");
+    CU_ASSERT_EQUAL(actual[i].value, expected[i].value);
+    CU_ASSERT_EQUAL(actual[i].poss, expected[i].poss);
   }
-  CU_PASS();
 }
 
 void get_col_test() {
-  board_t board;
-  init_board(&board);
+  board_t given_board;
+  init_board(&given_board);
+
   int i;
   for(i=0;i<BOARD_SIZE;i++)
-    set_cell_val(&board, i, 0, i+1);
+    set_cell_val(&given_board, i, 0, i+1);
 
-  cell_t actual[BOARD_SIZE];
-  get_col(&board, actual, 0);
-
-  cell_t expected[BOARD_SIZE];
+  cell_t expected_col[BOARD_SIZE];
   for(i=0;i<BOARD_SIZE;i++) {
-    expected[i].value = i+1;
-    expected[i].poss = 0;
+    expected_col[i].value = i+1;
+    expected_col[i].poss = 0;
   }
 
+  cell_t actual_col[BOARD_SIZE];
+  get_col(&given_board, actual_col, 0);
+
   for(i=0;i<BOARD_SIZE;i++) {
-    if (actual[i].value!=expected[i].value)
-      CU_FAIL("All cells in row weren't equal.");
+    CU_ASSERT_EQUAL(actual_col[i].value, expected_col[i].value);
+    CU_ASSERT_EQUAL(actual_col[i].poss, expected_col[i].poss);
   }
-  CU_PASS();
 }
 
 void set_poss_test() {
   cell_t cell = {0};
-  set_poss(&cell, ONE);
+  set_poss(&cell, 1);
   CU_TEST(cell.poss == 0b1);
 }
-
-void get_poss_test() {
-  cell_t cell = {0, 2};
-  short poss = get_poss(&cell);
-  CU_TEST(poss == 0b10);
-}
-

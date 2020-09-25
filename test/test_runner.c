@@ -24,15 +24,14 @@ void add_board_tests(CU_pSuite * suite) {
   CU_ADD_TEST(*suite, get_row_test);
   CU_ADD_TEST(*suite, get_col_test);
   CU_ADD_TEST(*suite, set_poss_test);
-  CU_ADD_TEST(*suite, get_poss_test);
 }
 
 void add_solver_tests(CU_pSuite * suite) {
   CU_ADD_TEST(*suite, find_possible_values_test);
-  CU_ADD_TEST(*suite, naive_solver_test);
+  // CU_ADD_TEST(*suite, naive_solver_test);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
 	if (CUE_SUCCESS != CU_initialize_registry())
       return CU_get_error();	

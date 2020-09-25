@@ -9,5 +9,4 @@ void set_board_string_test();
 void get_row_test();
 void get_col_test();
 void set_poss_test();
-void get_poss_test();
 

@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 static const board_t empty_struct;
-const char * BLANK_ROW = "------------\n";
+const char* BLANK_ROW = "------------\n";
 
 void init_board(board_t * board) {
   *board = empty_struct;
@@ -19,7 +19,7 @@ int get_cell_val(board_t * board, int row, int col) {
   return board->grid[row][col].value;
 }
 
-const char * print_row(board_t * board, char * buffer, int row) {
+const char* print_row(board_t * board, char* buffer, int row) {
   int col, i;
   for(col=i=0;i<13;i++) {
     if (i%4==0) {
@@ -34,13 +34,13 @@ const char * print_row(board_t * board, char * buffer, int row) {
   return buffer;
 }
 
-const char * print_blank_row() {
+const char* print_blank_row() {
   return BLANK_ROW;
 }
 
-const char * print_board(board_t * board) {
+char* print_board(board_t * board) {
   char buffer[14];
-  char * result = malloc(sizeof(char)*183);
+  char* result = malloc(sizeof(char)*183);
   result[0] = 0;
   int i, row;
   for(i=row=0;i<13;i++) {
@@ -62,7 +62,7 @@ void set_board(board_t * board, int * values) {
   }
 }
 
-void set_board_string(board_t * board, char * str) {
+void set_board_string(board_t * board, char* str) {
   if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
     return;
   int i, values[BOARD_SIZE*BOARD_SIZE];
@@ -71,7 +71,7 @@ void set_board_string(board_t * board, char * str) {
   set_board(board, values);
 }
 
-int set_board_file(board_t * board, char * filename) {
+int set_board_file(board_t * board, char* filename) {
   FILE * file = fopen(filename, "r");
   char result[BOARD_SIZE*BOARD_SIZE+1];
   char buffer[BOARD_SIZE+1];

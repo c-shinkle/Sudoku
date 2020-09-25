@@ -3,15 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char * argv[])
+int main(int argc, char** argv)
 {
   board_t board;
   init_board(&board);
-  char * ptr;
   if (set_board_file(&board, ".board_data")) {
     return 1;
   }
-  ptr = print_board(&board);
+  char* ptr = print_board(&board);
   printf("%s", ptr);
   free(ptr);
 
