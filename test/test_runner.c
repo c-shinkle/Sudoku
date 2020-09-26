@@ -1,6 +1,5 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "../src/solver.h"
 #include "board_tests.h"
 #include "solver_tests.h"
 
