@@ -1,14 +1,19 @@
-all: board_tests.c solver_tests.c test_runner.c ../unit_tests
+CC = gcc
+CFLAGS = -c -Wall -g
+LDFLAGS = -Wall -lcunit
+TESTS = board_tests.c solver_tests.c test_runner.c
+TEST_OBJECTS = $(TESTS:.c=.o)
+SRC_OBJECTS = ../src/cell.o ../src/board.o ../src/solver.o
+EXECUTABLE = ../unit_tests
 
-../unit_tests: board_tests.o solver_tests.o
-	gcc -Wall ../src/cell.o ../src/board.o ../src/solver.o \
-	board_tests.o	solver_tests.o test_runner.c -lcunit -o ../unit_tests
+all: $(TESTS) $(EXECUTABLE)
 
-board_tests.o:
-	gcc -c -Wall board_tests.c -g -o board_tests.o
+$(EXECUTABLE): $(TEST_OBJECTS)
+	$(CC) $(SRC_OBJECTS) $^ $(LDFLAGS) -o $@
 
-solver_tests.o:
-	gcc -c -Wall solver_tests.c	-g -o solver_tests.o
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm ../unit_tests *.o
+	rm -rf $(EXECUTABLE) $(TEST_OBJECTS)
+	
