@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -c -Wall -g
-LDFLAGS = -Wall -g
+LDFLAGS = -Wall
 SOURCES = board.c cell.c sudoku.c solver.c
 OBJECTS = $(SOURCES:.c=.o)
 EXECUTABLE = ../sudoku
@@ -8,10 +8,10 @@ EXECUTABLE = ../sudoku
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(CC) $^ $(LDFLAGS) -o $@
 
-.c.o:
-	$(CC) $(CFLAGS) $< -g -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(EXECUTABLE) $(OBJECTS)
