@@ -3,4 +3,4 @@ typedef struct {
   short poss;
 } cell_t;
 
-void set_poss(cell_t * cell, char poss);
+void set_poss(cell_t* cell, char poss);

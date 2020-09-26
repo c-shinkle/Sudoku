@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -c -Wall -lm
+CFLAGS = -c -Wall
 LDFLAGS = 
 SOURCEFILES = board.c cell.c sudoku.c solver.c
 SOURCES = $(SOURCEFILES)

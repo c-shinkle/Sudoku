@@ -7,19 +7,19 @@
 static const board_t empty_struct;
 const char* BLANK_ROW = "------------\n";
 
-void init_board(board_t * board) {
+void init_board(board_t* board) {
   *board = empty_struct;
 }
 
-void set_cell_val(board_t * board, int row, int col, int val) {
+void set_cell_val(board_t* board, int row, int col, int val) {
   board->grid[row][col].value = val;
 }
 
-int get_cell_val(board_t * board, int row, int col) {
+int get_cell_val(board_t* board, int row, int col) {
   return board->grid[row][col].value;
 }
 
-const char* print_row(board_t * board, char* buffer, int row) {
+const char* print_row(board_t* board, char* buffer, int row) {
   int col, i;
   for(col=i=0;i<13;i++) {
     if (i%4==0) {
@@ -38,7 +38,7 @@ const char* print_blank_row() {
   return BLANK_ROW;
 }
 
-char* print_board(board_t * board) {
+char* print_board(board_t* board) {
   char buffer[14];
   char* result = malloc(sizeof(char)*183);
   result[0] = 0;
@@ -53,7 +53,7 @@ char* print_board(board_t * board) {
   return result;
 }
 
-void set_board(board_t * board, int * values) {
+void set_board(board_t* board, int* values) {
   int row, col;
   for(row=0;row<BOARD_SIZE;row++) {
     for(col=0;col<BOARD_SIZE;col++) {
@@ -62,7 +62,7 @@ void set_board(board_t * board, int * values) {
   }
 }
 
-void set_board_string(board_t * board, char* str) {
+void set_board_string(board_t* board, char* str) {
   if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
     return;
   int i, values[BOARD_SIZE*BOARD_SIZE];
@@ -71,13 +71,15 @@ void set_board_string(board_t * board, char* str) {
   set_board(board, values);
 }
 
-int set_board_file(board_t * board, char* filename) {
-  FILE * file = fopen(filename, "r");
+int set_board_file(board_t* board, char* filename) {
+  FILE* file = fopen(filename, "r");
   char result[BOARD_SIZE*BOARD_SIZE+1];
   char buffer[BOARD_SIZE+1];
   int i;
-  if (!file)
-    return -1;
+
+  if (file == NULL)
+    return 1;
+
   result[0] = 0;
   for(i=0;i<BOARD_SIZE;i++) {
     fscanf(file, "%s", buffer);
@@ -88,15 +90,15 @@ int set_board_file(board_t * board, char* filename) {
   return 0;
 }
 
-cell_t * get_row(board_t * board, cell_t * buffer, int row) {
+cell_t* get_row(board_t* board, cell_t* buffer, int row) {
   int i;
   for(i=0;i<BOARD_SIZE;i++) {
     buffer[i] = board->grid[row][i];
   }
   return buffer;
-} 
+}
 
-cell_t * get_col(board_t * board, cell_t * buffer, int col) {
+cell_t* get_col(board_t* board, cell_t* buffer, int col) {
   int i;
   for(i=0;i<BOARD_SIZE;i++) {
     buffer[i] = board->grid[i][col];

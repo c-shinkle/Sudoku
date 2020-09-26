@@ -3,10 +3,10 @@ all: board_tests.o solver_tests.o
 	solver_tests.o test_runner.c -lcunit
 
 board_tests.o:
-	gcc -Wall -c ../src/board.o ../src/cell.o board_tests.c
+	gcc -c -Wall board_tests.c ../src/board.o ../src/cell.o
 
 solver_tests.o:
-	gcc -Wall -c ../src/board.o ../src/cell.o ../src/solver.o solver_tests.c
+	gcc -c -Wall ../src/board.o ../src/cell.o ../src/solver.o solver_tests.c
 
 clean:
 	rm ../unit_tests *.o

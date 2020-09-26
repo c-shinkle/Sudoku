@@ -1,7 +1,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
-#include "../src/board.h"
 #include "../src/solver.h"
+#include "solver_tests.h"
 
 void naive_solver_test() {
   board_t board;
@@ -33,7 +33,6 @@ void naive_solver_test() {
 
 void find_possible_values_test() {
   board_t board;
-  cell_t grid[BOARD_SIZE][BOARD_SIZE] = board.grid;
   int row = 1;
   int col = 4;
 
@@ -44,5 +43,5 @@ void find_possible_values_test() {
   find_possible_values(&board, row, col);
   // printf("0x%x", board.grid[row][col].poss);
 
-  CU_TEST(grid[row][col].poss == 0x1c7);
+  CU_TEST(board.grid[row][col].poss == 0x1c7);
 }

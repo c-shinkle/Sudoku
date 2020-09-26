@@ -1,12 +1,10 @@
-#include "board.h"
 #include "solver.h"
-#include <math.h>
 
-void naive_solver(board_t * board) {
+void naive_solver(board_t* board) {
   
 }
 
-void find_possible_values(board_t * board, int row, int col) {
+void find_possible_values(board_t* board, int row, int col) {
   cell_t tmp = {0};
 
   int i;
