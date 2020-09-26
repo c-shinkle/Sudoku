@@ -1,8 +1,7 @@
 CC = gcc
 CFLAGS = -c -Wall
 LDFLAGS = 
-SOURCEFILES = board.c cell.c sudoku.c solver.c
-SOURCES = $(SOURCEFILES)
+SOURCES = board.c cell.c sudoku.c solver.c
 OBJECTS = $(SOURCES:.c=.o)
 EXECUTABLE = ../sudoku
 
@@ -15,4 +14,4 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -g -o $@
 
 clean:
-	rm -rf ../sudoku $(OBJECTS)
+	rm -rf $(EXECUTABLE) $(OBJECTS)
