@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -c -Wall -g
 LDFLAGS = -Wall
-SOURCES = board.c cell.c sudoku.c solver.c
+SOURCES = board.c sudoku.c solver.c
 OBJECTS = $(SOURCES:.c=.o)
 EXECUTABLE = ../sudoku
 

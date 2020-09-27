@@ -192,7 +192,12 @@ void get_col_test() {
 }
 
 void set_poss_test() {
-  cell_t cell = {0};
-  set_poss(&cell, 1);
-  CU_TEST(cell.poss == 0b1);
+  cell_t cell;
+  init_cell(&cell);
+
+  elim_poss(&cell, 1);
+  elim_poss(&cell, 2);
+  elim_poss(&cell, 3);
+
+  CU_TEST(cell.poss == 0b1111111000);
 }

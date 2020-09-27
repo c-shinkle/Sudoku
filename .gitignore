@@ -50,7 +50,6 @@
 # binaries
 sudoku
 unit_tests
-.board_data
 
 modules.order
 Module.symvers

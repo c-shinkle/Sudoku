@@ -1,5 +1,6 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
+#include <stdint.h>
 #include "../src/solver.h"
 #include "solver_tests.h"
 
@@ -31,17 +32,16 @@ void naive_solver_test() {
   CU_ASSERT_STRING_EQUAL(print_board(&board), solution);
 }
 
-void find_possible_values_test() {
+void populate_possible_values_test() {
   board_t board;
-  int row = 1;
-  int col = 4;
+  uint8_t row = 1;
+  uint8_t col = 4;
 
   init_board(&board);
   if (set_board_file(&board, ".board_data")) {
     CU_FAIL("No '.board_data' found");
   }
-  find_possible_values(&board, row, col);
-  // printf("0x%x", board.grid[row][col].poss);
+  populate_possible_values(&board, row, col);
 
-  CU_TEST(board.grid[row][col].poss == 0x1c7);
+  CU_TEST(board.grid[row][col].poss == 0b1111111000);
 }

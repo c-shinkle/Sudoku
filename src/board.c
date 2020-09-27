@@ -105,3 +105,14 @@ cell_t* get_col(board_t* board, cell_t* buffer, int col) {
   }
   return buffer;
 }
+
+void init_cell(cell_t* cell) {
+  cell->value = 0;
+  cell->poss = 0b1111111111;
+}
+
+void elim_poss(cell_t* cell, uint8_t poss) {
+  if (1 <= poss && poss <= 9) {
+    cell->poss &= ~(1 << (poss-1));
+  }
+}

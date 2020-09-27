@@ -1,6 +1,13 @@
 #pragma once
-#include "cell.h"
+
+#include <stdint.h>
+
 #define BOARD_SIZE 9
+
+typedef struct {
+  uint8_t value;
+  uint16_t poss;
+} cell_t;
 
 typedef struct {
   cell_t grid[BOARD_SIZE][BOARD_SIZE];
@@ -17,3 +24,5 @@ const char* print_blank_row();
 char* print_board(board_t* board);
 cell_t* get_row(board_t* board, cell_t* buffer, int row);
 cell_t* get_col(board_t* board, cell_t* buffer, int col);
+void init_cell(cell_t* cell);
+void elim_poss(cell_t* cell, uint8_t poss);

@@ -3,7 +3,7 @@ CFLAGS = -c -Wall -g
 LDFLAGS = -Wall -lcunit
 TESTS = board_tests.c solver_tests.c test_runner.c
 TEST_OBJECTS = $(TESTS:.c=.o)
-SRC_OBJECTS = ../src/cell.o ../src/board.o ../src/solver.o
+SRC_OBJECTS = ../src/board.o ../src/solver.o
 EXECUTABLE = ../unit_tests
 
 all: $(TESTS) $(EXECUTABLE)
