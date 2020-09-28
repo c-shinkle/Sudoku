@@ -42,13 +42,9 @@ char* print_board(board_t* board) {
   char buffer[14];
   char* result = malloc(sizeof(char)*183);
   result[0] = 0;
-  int i, row;
+  uint8_t i, row;
   for(i=row=0;i<13;i++) {
-    if (i%4==0) {
-      strcat(result, print_blank_row());
-    } else {
-      strcat(result, print_row(board, buffer, row++));
-    }
+    strcat(result, i%4==0 ? print_blank_row() : print_row(board, buffer, row++));
   }
   return result;
 }

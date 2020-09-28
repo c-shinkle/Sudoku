@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "board.h"
 #include "solver.h"
@@ -27,14 +28,8 @@ int main(int argc, char** argv)
 {
   board_t board;
   init_board(&board);
-  if (set_board_file(&board, ".board_data")) {
-    return 1;
-  }
-
-  uint8_t row = 1;
-  uint8_t col = 4;
-  populate_possible_values(&board, row, col);
-  uint16_t poss = board.grid[row][col].poss;
-  printBits(sizeof(poss), &poss);
+  char* p = print_board(&board);
+  puts(p);
+  printf("%ld\n", strlen(p));
   return 0;
 }

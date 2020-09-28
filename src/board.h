@@ -4,12 +4,12 @@
 
 #define BOARD_SIZE 9
 
-typedef struct {
+typedef struct cell_t {
   uint8_t value;
   uint16_t poss;
 } cell_t;
 
-typedef struct {
+typedef struct board_t {
   cell_t grid[BOARD_SIZE][BOARD_SIZE];
 } board_t;
 
