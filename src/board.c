@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 static const board_t empty_struct;
-const char* BLANK_ROW = "------------\n";
+const char* BLANK_ROW = "-------------\n";
 
 void init_board(board_t* board) {
   *board = empty_struct;
@@ -19,15 +19,10 @@ int get_cell_val(board_t* board, int row, int col) {
   return board->grid[row][col].value;
 }
 
-const char* print_row(board_t* board, char* buffer, int row) {
-  int col, i;
+const char* print_row(board_t* board, char* buffer, uint8_t row) {
+  uint8_t col, i;
   for(col=i=0;i<13;i++) {
-    if (i%4==0) {
-      buffer[i] = '|';
-    } else {
-      //ascii-48 == '0'
-      buffer[i] = get_cell_val(board, row, col++) + 48;
-    }
+    buffer[i] = i%4==0 ? '|' : get_cell_val(board, row, col++) + '0';
   }
   buffer[13] = '\n';
   buffer[14] = 0;
@@ -39,10 +34,10 @@ const char* print_blank_row() {
 }
 
 char* print_board(board_t* board) {
-  char buffer[14];
-  char* result = malloc(sizeof(char)*183);
-  result[0] = 0;
   uint8_t i, row;
+  char buffer[15];
+  char* result = malloc(sizeof(char)*14*13+1); //1 byte char, 14 rows, 13 columns, 1 null terminator
+  result[0] = 0;
   for(i=row=0;i<13;i++) {
     strcat(result, i%4==0 ? print_blank_row() : print_row(board, buffer, row++));
   }
@@ -63,7 +58,7 @@ void set_board_string(board_t* board, char* str) {
     return;
   int i, values[BOARD_SIZE*BOARD_SIZE];
   for(i=0;i<BOARD_SIZE*BOARD_SIZE;i++)
-    values[i] = str[i]-48;
+    values[i] = str[i]-'0';
   set_board(board, values);
 }
 

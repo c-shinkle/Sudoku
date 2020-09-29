@@ -31,5 +31,6 @@ int main(int argc, char** argv)
   char* p = print_board(&board);
   puts(p);
   printf("%ld\n", strlen(p));
+  free(p);
   return 0;
 }
