@@ -17,8 +17,8 @@ void add_board_tests(CU_pSuite * suite) {
   CU_ADD_TEST(*suite, print_row_test);
   CU_ADD_TEST(*suite, print_board_test0);
   CU_ADD_TEST(*suite, print_board_test1);
-  CU_ADD_TEST(*suite, print_board_test2);
   CU_ADD_TEST(*suite, set_board_string_test);
+  CU_ADD_TEST(*suite, should_return_error_when_string_is_not_correct_length);
   CU_ADD_TEST(*suite, get_row_test);
   CU_ADD_TEST(*suite, get_col_test);
   CU_ADD_TEST(*suite, set_poss_test);

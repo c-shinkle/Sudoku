@@ -41,108 +41,93 @@ void print_blank_row_test() {
 void print_board_test0() {
   board_t board;
   init_board(&board);
-  char* test_board =
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "|000|000|000|\n"
-    "------------\n";
+  char *test_board =
+      "-------------\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "-------------\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "-------------\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "|000|000|000|\n"
+      "-------------\n";
   CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
 }
 
 void print_board_test1() {
   board_t board;
   init_board(&board);
-  int i;
+
+  uint8_t i;
   for(i=0;i<BOARD_SIZE;i++) {
     set_cell_val(&board, i, i, i+1);
   }
-  CU_ASSERT_STRING_EQUAL(print_board(&board),
-    "------------\n"
-    "|100|000|000|\n"
-    "|020|000|000|\n"
-    "|003|000|000|\n"
-    "------------\n"
-    "|000|400|000|\n"
-    "|000|050|000|\n"
-    "|000|006|000|\n"
-    "------------\n"
-    "|000|000|700|\n"
-    "|000|000|080|\n"
-    "|000|000|009|\n"
-    "------------\n"  
-  );
-}
+  const char *expected_printout =
+      "-------------\n"
+      "|100|000|000|\n"
+      "|020|000|000|\n"
+      "|003|000|000|\n"
+      "-------------\n"
+      "|000|400|000|\n"
+      "|000|050|000|\n"
+      "|000|006|000|\n"
+      "-------------\n"
+      "|000|000|700|\n"
+      "|000|000|080|\n"
+      "|000|000|009|\n"
+      "-------------\n";
 
-void print_board_test2() {
-  board_t board;
-  init_board(&board);
-  int values[BOARD_SIZE*BOARD_SIZE] = {
-    1,1,1,1,1,1,1,1,1,
-    2,2,2,2,2,2,2,2,2,
-    3,3,3,3,3,3,3,3,3,
-    4,4,4,4,4,4,4,4,4,
-    5,5,5,5,5,5,5,5,5,
-    6,6,6,6,6,6,6,6,6,
-    7,7,7,7,7,7,7,7,7,
-    8,8,8,8,8,8,8,8,8,
-    9,9,9,9,9,9,9,9,9
-  };
-  set_board(&board, values);
-  char* test_board =
-    "------------\n"
-    "|111|111|111|\n"
-    "|222|222|222|\n"
-    "|333|333|333|\n"
-    "------------\n"
-    "|444|444|444|\n"
-    "|555|555|555|\n"
-    "|666|666|666|\n"
-    "------------\n"
-    "|777|777|777|\n"
-    "|888|888|888|\n"
-    "|999|999|999|\n"
-    "------------\n";
-  CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
+  const char *actual_printout = print_board(&board);
+
+  CU_ASSERT_STRING_EQUAL(actual_printout, expected_printout);
 }
 
 void set_board_string_test() {
   board_t board;
   init_board(&board);
-  char* str =
-    "111111111"
-    "222222222"
-    "333333333"
-    "444444444"
-    "555555555"
-    "666666666"
-    "777777777"
-    "888888888"
-    "999999999";
-  set_board_string(&board, str);
-  char* test_board =
-    "------------\n"
-    "|111|111|111|\n"
-    "|222|222|222|\n"
-    "|333|333|333|\n"
-    "------------\n"
-    "|444|444|444|\n"
-    "|555|555|555|\n"
-    "|666|666|666|\n"
-    "------------\n"
-    "|777|777|777|\n"
-    "|888|888|888|\n"
-    "|999|999|999|\n"
-    "------------\n";
-    CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
+  const char *board_string =
+      "111111111"
+      "222222222"
+      "333333333"
+      "444444444"
+      "555555555"
+      "666666666"
+      "777777777"
+      "888888888"
+      "999999999";
+  set_board_string(&board, board_string);
+  const char *expected_printout =
+      "-------------\n"
+      "|111|111|111|\n"
+      "|222|222|222|\n"
+      "|333|333|333|\n"
+      "-------------\n"
+      "|444|444|444|\n"
+      "|555|555|555|\n"
+      "|666|666|666|\n"
+      "-------------\n"
+      "|777|777|777|\n"
+      "|888|888|888|\n"
+      "|999|999|999|\n"
+      "-------------\n";
+
+  const char *actual_printout = print_board(&board);
+
+  CU_ASSERT_STRING_EQUAL(actual_printout, expected_printout);
+}
+
+void should_return_error_when_string_is_not_correct_length() {
+  board_t board;
+  init_board(&board);
+  char *bad_string = "This is a bad string\n";
+
+  uint8_t actual_error_code = set_board_string(&board, bad_string);
+
+  CU_ASSERT_EQUAL(actual_error_code, 1);
 }
 
 void get_row_test() {

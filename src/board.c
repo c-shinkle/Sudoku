@@ -44,22 +44,17 @@ char* print_board(board_t* board) {
   return result;
 }
 
-void set_board(board_t* board, int* values) {
-  int row, col;
+uint8_t set_board_string(board_t* board, const char* str) {
+  if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
+    return 1;
+  
+  uint8_t row, col;
   for(row=0;row<BOARD_SIZE;row++) {
     for(col=0;col<BOARD_SIZE;col++) {
-      set_cell_val(board, row, col, values[row*BOARD_SIZE+col]);
+      set_cell_val(board, row, col, str[row*BOARD_SIZE+col] - '0');
     }
   }
-}
-
-void set_board_string(board_t* board, char* str) {
-  if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
-    return;
-  int i, values[BOARD_SIZE*BOARD_SIZE];
-  for(i=0;i<BOARD_SIZE*BOARD_SIZE;i++)
-    values[i] = str[i]-'0';
-  set_board(board, values);
+  return 0;
 }
 
 int set_board_file(board_t* board, char* filename) {
