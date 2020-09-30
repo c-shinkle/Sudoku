@@ -42,7 +42,7 @@ void print_row_test()
 
 void print_blank_row_test()
 {
-  CU_ASSERT_STRING_EQUAL(print_blank_row(), "------------\n");
+  CU_ASSERT_STRING_EQUAL(print_blank_row(), "-------------\n");
 }
 
 void print_board_test0()
