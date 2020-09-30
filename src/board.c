@@ -5,69 +5,82 @@
 #include <unistd.h>
 
 static const board_t empty_struct;
-const char* BLANK_ROW = "-------------\n";
+const char *BLANK_ROW = "-------------\n";
 
-void init_board(board_t* board) {
+void init_board(board_t *board)
+{
   *board = empty_struct;
 }
 
-void set_cell_val(board_t* board, int row, int col, int val) {
+void set_cell_val(board_t *board, int row, int col, int val)
+{
   board->grid[row][col].value = val;
 }
 
-int get_cell_val(board_t* board, int row, int col) {
+int get_cell_val(board_t *board, int row, int col)
+{
   return board->grid[row][col].value;
 }
 
-const char* print_row(board_t* board, char* buffer, uint8_t row) {
+const char *print_row(board_t *board, char *buffer, uint8_t row)
+{
   uint8_t col, i;
-  for(col=i=0;i<13;i++) {
-    buffer[i] = i%4==0 ? '|' : get_cell_val(board, row, col++) + '0';
+  for (col = i = 0; i < 13; i++)
+  {
+    buffer[i] = i % 4 == 0 ? '|' : get_cell_val(board, row, col++) + '0';
   }
   buffer[13] = '\n';
   buffer[14] = 0;
   return buffer;
 }
 
-const char* print_blank_row() {
+const char *print_blank_row()
+{
   return BLANK_ROW;
 }
 
-char* print_board(board_t* board) {
+char *print_board(board_t *board)
+{
   uint8_t i, row;
   char buffer[15];
-  char* result = malloc(sizeof(char)*14*13+1); //1 byte char, 14 rows, 13 columns, 1 null terminator
+  char *result = malloc(sizeof(char) * 14 * 13 + 1); //1 byte char, 14 rows, 13 columns, 1 null terminator
   result[0] = 0;
-  for(i=row=0;i<13;i++) {
-    strcat(result, i%4==0 ? print_blank_row() : print_row(board, buffer, row++));
+  for (i = row = 0; i < 13; i++)
+  {
+    strcat(result, i % 4 == 0 ? print_blank_row() : print_row(board, buffer, row++));
   }
   return result;
 }
 
-uint8_t set_board_string(board_t* board, const char* str) {
-  if (strlen(str)!=BOARD_SIZE*BOARD_SIZE) 
+uint8_t set_board_string(board_t *board, const char *str)
+{
+  if (strlen(str) != BOARD_SIZE * BOARD_SIZE)
     return 1;
-  
+
   uint8_t row, col;
-  for(row=0;row<BOARD_SIZE;row++) {
-    for(col=0;col<BOARD_SIZE;col++) {
-      set_cell_val(board, row, col, str[row*BOARD_SIZE+col] - '0');
+  for (row = 0; row < BOARD_SIZE; row++)
+  {
+    for (col = 0; col < BOARD_SIZE; col++)
+    {
+      set_cell_val(board, row, col, str[row * BOARD_SIZE + col] - '0');
     }
   }
   return 0;
 }
 
-int set_board_file(board_t* board, char* filename) {
-  FILE* file = fopen(filename, "r");
-  char result[BOARD_SIZE*BOARD_SIZE+1];
-  char buffer[BOARD_SIZE+1];
+int set_board_file(board_t *board, char *filename)
+{
+  FILE *file = fopen(filename, "r");
+  char result[BOARD_SIZE * BOARD_SIZE + 1];
+  char buffer[BOARD_SIZE + 1];
   int i;
 
   if (file == NULL)
     return 1;
 
   result[0] = 0;
-  for(i=0;i<BOARD_SIZE;i++) {
+  for (i = 0; i < BOARD_SIZE; i++)
+  {
     fscanf(file, "%s", buffer);
     strncat(result, buffer, BOARD_SIZE);
   }
@@ -76,29 +89,36 @@ int set_board_file(board_t* board, char* filename) {
   return 0;
 }
 
-cell_t* get_row(board_t* board, cell_t* buffer, int row) {
+cell_t *get_row(board_t *board, cell_t *buffer, int row)
+{
   int i;
-  for(i=0;i<BOARD_SIZE;i++) {
+  for (i = 0; i < BOARD_SIZE; i++)
+  {
     buffer[i] = board->grid[row][i];
   }
   return buffer;
 }
 
-cell_t* get_col(board_t* board, cell_t* buffer, int col) {
+cell_t *get_col(board_t *board, cell_t *buffer, int col)
+{
   int i;
-  for(i=0;i<BOARD_SIZE;i++) {
+  for (i = 0; i < BOARD_SIZE; i++)
+  {
     buffer[i] = board->grid[i][col];
   }
   return buffer;
 }
 
-void init_cell(cell_t* cell) {
+void init_cell(cell_t *cell)
+{
   cell->value = 0;
   cell->poss = 0b1111111111;
 }
 
-void elim_poss(cell_t* cell, uint8_t poss) {
-  if (1 <= poss && poss <= 9) {
-    cell->poss &= ~(1 << (poss-1));
+void elim_poss(cell_t *cell, uint8_t poss)
+{
+  if (1 <= poss && poss <= 9)
+  {
+    cell->poss &= ~(1 << (poss - 1));
   }
 }

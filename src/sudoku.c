@@ -7,9 +7,9 @@
 #include "solver.h"
 
 // Assumes little endian
-void printBits(size_t const size, void const * const ptr)
+void printBits(size_t const size, void const *const ptr)
 {
-  unsigned char* b = (unsigned char*) ptr;
+  unsigned char *b = (unsigned char *)ptr;
   unsigned char byte;
   int i, j;
 
@@ -24,11 +24,11 @@ void printBits(size_t const size, void const * const ptr)
   puts("");
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
   board_t board;
   init_board(&board);
-  char* p = print_board(&board);
+  char *p = print_board(&board);
   puts(p);
   printf("%ld\n", strlen(p));
   free(p);
