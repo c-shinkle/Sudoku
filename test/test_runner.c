@@ -29,7 +29,7 @@ void add_board_tests(CU_pSuite *suite)
 void add_solver_tests(CU_pSuite *suite)
 {
   CU_ADD_TEST(*suite, populate_possible_values_test);
-  // CU_ADD_TEST(*suite, naive_solver_test);
+  CU_ADD_TEST(*suite, naive_solver_test);
 }
 
 int main(int argc, char **argv)

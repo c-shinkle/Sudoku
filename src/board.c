@@ -22,6 +22,10 @@ int get_cell_val(board_t *board, int row, int col)
   return board->grid[row][col].value;
 }
 
+uint8_t cell_has_poss(cell_t *cell, uint8_t val) {
+  return (cell->poss >> (val - 1)) & 1;
+}
+
 const char *print_row(board_t *board, char *buffer, uint8_t row)
 {
   uint8_t col, i;
@@ -111,7 +115,6 @@ cell_t *get_col(board_t *board, cell_t *buffer, int col)
 
 void init_cell(cell_t *cell)
 {
-  cell->value = 0;
   cell->poss = 0b1111111111;
 }
 
