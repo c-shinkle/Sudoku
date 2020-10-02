@@ -49,7 +49,7 @@
 
 # binaries
 sudoku
-unit_test
+unit_tests
 
 modules.order
 Module.symvers
