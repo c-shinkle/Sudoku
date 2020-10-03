@@ -142,58 +142,6 @@ void should_return_error_when_string_is_not_correct_length()
   CU_ASSERT_EQUAL(actual_error_code, 1);
 }
 
-void get_row_test()
-{
-  board_t board;
-  int i;
-  init_board(&board);
-
-  for (i = 0; i < BOARD_SIZE; i++)
-    set_cell_val(&board, 0, i, i + 1);
-
-  cell_t actual[BOARD_SIZE];
-  get_row(&board, actual, 0);
-
-  cell_t expected[BOARD_SIZE];
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    expected[i].value = i + 1;
-    expected[i].poss = 0;
-  }
-
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    CU_ASSERT_EQUAL(actual[i].value, expected[i].value);
-    CU_ASSERT_EQUAL(actual[i].poss, expected[i].poss);
-  }
-}
-
-void get_col_test()
-{
-  board_t given_board;
-  init_board(&given_board);
-
-  int i;
-  for (i = 0; i < BOARD_SIZE; i++)
-    set_cell_val(&given_board, i, 0, i + 1);
-
-  cell_t expected_col[BOARD_SIZE];
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    expected_col[i].value = i + 1;
-    expected_col[i].poss = 0;
-  }
-
-  cell_t actual_col[BOARD_SIZE];
-  get_col(&given_board, actual_col, 0);
-
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    CU_ASSERT_EQUAL(actual_col[i].value, expected_col[i].value);
-    CU_ASSERT_EQUAL(actual_col[i].poss, expected_col[i].poss);
-  }
-}
-
 void set_poss_test()
 {
   cell_t cell;

@@ -37,7 +37,6 @@ uint8_t naive_solver(board_t *board)
 void populate_possible_values(board_t *board, uint8_t row, uint8_t col)
 {
   cell_t *cell = &board->grid[row][col];
-  init_cell(cell);
 
   uint8_t i;
   //check row

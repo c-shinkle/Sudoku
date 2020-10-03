@@ -24,7 +24,4 @@ uint8_t cell_has_poss(cell_t *cell, uint8_t val);
 const char *print_row(board_t *board, char *buffer, uint8_t row);
 const char *print_blank_row();
 char *print_board(board_t *board);
-cell_t *get_row(board_t *board, cell_t *buffer, int row);
-cell_t *get_col(board_t *board, cell_t *buffer, int col);
-void init_cell(cell_t *cell);
 void elim_poss(cell_t *cell, uint8_t poss);

@@ -4,12 +4,19 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static const board_t empty_struct;
 const char *BLANK_ROW = "-------------\n";
 
 void init_board(board_t *board)
 {
-  *board = empty_struct;
+  uint8_t row, col;
+  cell_t new_cell = {0, 0b111111111};
+  for (row = 0; row < BOARD_SIZE; row++)
+  {
+    for (col = 0; col < BOARD_SIZE; col++)
+    {
+      board->grid[row][col] = new_cell;
+    }
+  }
 }
 
 void set_cell_val(board_t *board, int row, int col, int val)
@@ -93,34 +100,9 @@ int set_board_file(board_t *board, char *filename)
   return 0;
 }
 
-cell_t *get_row(board_t *board, cell_t *buffer, int row)
-{
-  int i;
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    buffer[i] = board->grid[row][i];
-  }
-  return buffer;
-}
-
-cell_t *get_col(board_t *board, cell_t *buffer, int col)
-{
-  int i;
-  for (i = 0; i < BOARD_SIZE; i++)
-  {
-    buffer[i] = board->grid[i][col];
-  }
-  return buffer;
-}
-
-void init_cell(cell_t *cell)
-{
-  cell->poss = 0b1111111111;
-}
-
 void elim_poss(cell_t *cell, uint8_t poss)
 {
-  if (1 <= poss && poss <= 9)
+  if (poss != 0)
   {
     cell->poss &= ~(1 << (poss - 1));
   }
