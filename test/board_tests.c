@@ -49,7 +49,8 @@ void print_board_test0()
 {
   board_t board;
   init_board(&board);
-  char *test_board =
+  char buffer[ROW_LENGTH * COL_LENGTH + 1];
+  char *expected_board_printout =
       "-------------\n"
       "|000|000|000|\n"
       "|000|000|000|\n"
@@ -63,13 +64,17 @@ void print_board_test0()
       "|000|000|000|\n"
       "|000|000|000|\n"
       "-------------\n";
-  CU_ASSERT_STRING_EQUAL(print_board(&board), test_board);
+
+  char *actual_board_printout = print_board(&board, buffer);
+
+  CU_ASSERT_STRING_EQUAL(actual_board_printout, expected_board_printout);
 }
 
 void print_board_test1()
 {
   board_t board;
   init_board(&board);
+  char buffer[ROW_LENGTH * COL_LENGTH + 1];
 
   uint8_t i;
   for (i = 0; i < BOARD_SIZE; i++)
@@ -91,7 +96,7 @@ void print_board_test1()
       "|000|000|009|\n"
       "-------------\n";
 
-  const char *actual_printout = print_board(&board);
+  const char *actual_printout = print_board(&board, buffer);
 
   CU_ASSERT_STRING_EQUAL(actual_printout, expected_printout);
 }
@@ -100,6 +105,7 @@ void set_board_string_test()
 {
   board_t board;
   init_board(&board);
+  char buffer[ROW_LENGTH * COL_LENGTH + 1];
   const char *board_string =
       "111111111"
       "222222222"
@@ -126,7 +132,7 @@ void set_board_string_test()
       "|999|999|999|\n"
       "-------------\n";
 
-  const char *actual_printout = print_board(&board);
+  const char *actual_printout = print_board(&board, buffer);
 
   CU_ASSERT_STRING_EQUAL(actual_printout, expected_printout);
 }
@@ -145,11 +151,12 @@ void should_return_error_when_string_is_not_correct_length()
 void set_poss_test()
 {
   cell_t cell;
-  init_cell(&cell);
+  cell.poss = 0b111111111;
 
   elim_poss(&cell, 1);
   elim_poss(&cell, 2);
   elim_poss(&cell, 3);
 
-  CU_TEST(cell.poss == 0b1111111000);
+  uint16_t actual_poss = cell.poss;
+  CU_ASSERT_EQUAL(actual_poss, 0b111111000);
 }

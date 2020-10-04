@@ -1,6 +1,5 @@
 #include "board.h"
 #include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -29,7 +28,8 @@ int get_cell_val(board_t *board, int row, int col)
   return board->grid[row][col].value;
 }
 
-uint8_t cell_has_poss(cell_t *cell, uint8_t val) {
+uint8_t cell_has_poss(cell_t *cell, uint8_t val)
+{
   return (cell->poss >> (val - 1)) & 1;
 }
 
@@ -50,17 +50,16 @@ const char *print_blank_row()
   return BLANK_ROW;
 }
 
-char *print_board(board_t *board)
+char *print_board(board_t *board, char board_buffer[])
 {
   uint8_t i, row;
-  char buffer[15];
-  char *result = malloc(sizeof(char) * 14 * 13 + 1); //1 byte char, 14 rows, 13 columns, 1 null terminator
-  result[0] = 0;
+  char row_buffer[ROW_LENGTH + 1];
+  board_buffer[0] = 0;
   for (i = row = 0; i < 13; i++)
   {
-    strcat(result, i % 4 == 0 ? print_blank_row() : print_row(board, buffer, row++));
+    strcat(board_buffer, i % 4 == 0 ? print_blank_row() : print_row(board, row_buffer, row++));
   }
-  return result;
+  return board_buffer;
 }
 
 uint8_t set_board_string(board_t *board, const char *str)

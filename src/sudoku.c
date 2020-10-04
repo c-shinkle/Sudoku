@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -43,12 +42,14 @@ int main(int argc, char **argv)
     printf("Something went wrong setting the board\n");
     return 1;
   }
-  char *before = print_board(&board);
+  //1 byte chars, 14 row length, 13 column length, 1 null terminator
+  char buffer[ROW_LENGTH * COL_LENGTH + 1];
+  char *before = print_board(&board, buffer);
   printf("Before:\n%s\n", before);
-  free(before);
+
   naive_solver(&board);
-  char *after = print_board(&board);
+  
+  char *after = print_board(&board, buffer);
   printf("After:\n%s\n", after);
-  free(after);
   return 0;
 }

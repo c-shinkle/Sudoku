@@ -3,6 +3,8 @@
 #include <stdint.h>
 
 #define BOARD_SIZE 9
+#define ROW_LENGTH 14
+#define COL_LENGTH 13
 
 typedef struct cell_t
 {
@@ -23,5 +25,5 @@ int get_cell_val(board_t *board, int row, int col);
 uint8_t cell_has_poss(cell_t *cell, uint8_t val);
 const char *print_row(board_t *board, char *buffer, uint8_t row);
 const char *print_blank_row();
-char *print_board(board_t *board);
+char *print_board(board_t *board, char board_buffer[]);
 void elim_poss(cell_t *cell, uint8_t poss);
