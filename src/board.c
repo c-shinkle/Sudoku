@@ -99,10 +99,31 @@ int set_board_file(board_t *board, char *filename)
   return 0;
 }
 
-void elim_poss(cell_t *cell, uint8_t poss)
+void elim_poss(cell_t *cell, uint8_t val)
 {
-  if (poss != 0)
+  if (val != 0)
   {
-    cell->poss &= ~(1 << (poss - 1));
+    cell->poss &= ~(1 << (val - 1));
   }
+}
+
+uint8_t count_poss(uint8_t poss)
+{
+  uint8_t counter = 0;
+  while (poss)
+  {
+    counter += poss % 2;
+    poss >>= 1;
+  }
+  return counter;
+}
+
+uint8_t get_val_from_poss(uint16_t poss)
+{
+  uint8_t val = 1;
+  while (poss >>= 1)
+  {
+    ++val;
+  }
+  return val;
 }

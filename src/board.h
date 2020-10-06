@@ -27,3 +27,5 @@ const char *print_row(board_t *board, char *buffer, uint8_t row);
 const char *print_blank_row();
 char *print_board(board_t *board, char board_buffer[]);
 void elim_poss(cell_t *cell, uint8_t poss);
+uint8_t count_poss(uint8_t poss);
+uint8_t get_val_from_poss(uint16_t poss);
