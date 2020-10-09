@@ -5,6 +5,7 @@
 #define BOARD_SIZE 9
 #define ROW_LENGTH 14
 #define COL_LENGTH 13
+#define BOARD_PRINT_BUFFER_SIZE ROW_LENGTH * COL_LENGTH +1
 
 typedef struct cell_t
 {

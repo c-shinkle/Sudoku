@@ -81,21 +81,21 @@ uint8_t set_board_string(board_t *board, const char *str)
 int set_board_file(board_t *board, char *filename)
 {
   FILE *file = fopen(filename, "r");
-  char result[BOARD_SIZE * BOARD_SIZE + 1];
-  char buffer[BOARD_SIZE + 1];
+  char board_buffer[BOARD_SIZE * BOARD_SIZE + 1];
+  char line_buffer[BOARD_SIZE + 1];
   int i;
 
   if (file == NULL)
     return 1;
 
-  result[0] = 0;
+  board_buffer[0] = 0;
   for (i = 0; i < BOARD_SIZE; i++)
   {
-    fscanf(file, "%s", buffer);
-    strncat(result, buffer, BOARD_SIZE);
+    fscanf(file, "%s", line_buffer);
+    strncat(board_buffer, line_buffer, BOARD_SIZE);
   }
   fclose(file);
-  set_board_string(board, result);
+  set_board_string(board, board_buffer);
   return 0;
 }
 

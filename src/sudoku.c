@@ -27,23 +27,12 @@ int main(int argc, char **argv)
 {
   board_t board;
   init_board(&board);
-  char *values =
-      "008931427"
-      "432678915"
-      "917245683"
-      "296354817"
-      "081762349"
-      "743819256"
-      "129583764"
-      "865497132"
-      "374126598";
-  if (set_board_string(&board, values))
+  if (set_board_file(&board, ".test_board_1"))
   {
     printf("Something went wrong setting the board\n");
     return 1;
   }
-  //1 byte chars, 14 row length, 13 column length, 1 null terminator
-  char buffer[ROW_LENGTH * COL_LENGTH + 1];
+  char buffer[BOARD_PRINT_BUFFER_SIZE];
   char *before = print_board(&board, buffer);
   printf("Before:\n%s\n", before);
 
