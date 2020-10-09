@@ -1,3 +1,5 @@
+OUTPUT = .bins
+
 all: SRC TEST
 
 SRC:
@@ -9,3 +11,5 @@ TEST:
 clean:
 	$(MAKE) clean -C src
 	$(MAKE) clean -C test
+
+$(shell mkdir -p $(OUTPUT))
