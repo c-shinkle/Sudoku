@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 {
   board_t board;
   init_board(&board);
-  if (set_board_file(&board, ".test_board_1"))
+  if (set_board_file(&board, "res/test_board_1"))
   {
     printf("Something went wrong setting the board\n");
     return 1;

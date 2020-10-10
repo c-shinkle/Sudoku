@@ -49,9 +49,9 @@ void populate_possible_values_test()
   init_board(&board);
   uint8_t row = 1;
   uint8_t col = 4;
-  if (set_board_file(&board, ".board_data"))
+  if (set_board_file(&board, "res/board_data"))
   {
-    CU_FAIL("No '.board_data' found");
+    CU_FAIL("No 'res/board_data' found");
   }
 
   populate_possible_values(&board, row, col);
