@@ -2,7 +2,7 @@
 #include "solver.h"
 #include <string.h>
 
-//Assumes board data are set and the board has a unique solution
+//Assumes board's grid values are set and the board has a unique solution
 uint8_t naive_solver(board_t *board)
 {
   uint8_t row, col;

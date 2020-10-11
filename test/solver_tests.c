@@ -9,7 +9,8 @@ void naive_solver_test_1()
 {
   board_t actual_board;
   init_board(&actual_board);
-  if (set_board_file(&actual_board, "res/test_board_1"))
+  int err = set_board_file(&actual_board, "res/test_board_1");
+  if (err)
     CU_FAIL("Failed to set board");
   board_t expected_board;
   init_board(&expected_board);

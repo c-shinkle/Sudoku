@@ -52,29 +52,23 @@ char *print_board(board_t *board, char board_buffer[])
   return board_buffer;
 }
 
-uint8_t set_board_string(board_t *board, char values[])
+uint8_t set_board_string(board_t *board, const char *values)
 {
   if (strlen(values) != BOARD_SIZE * BOARD_SIZE)
     return 1;
 
-  uint8_t row, col, i;
-  char board_data[BOARD_SIZE][BOARD_SIZE];
-  for (i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
-  {
-    board_data[i / BOARD_SIZE][i % BOARD_SIZE] = values[i];
-  }
-
+  uint8_t row, col;
   for (row = 0; row < BOARD_SIZE; row++)
   {
     for (col = 0; col < BOARD_SIZE; col++)
     {
-      board->grid[row][col].value = board_data[row][col] - '0';
+      board->grid[row][col].value = *((values + row * BOARD_SIZE) + col) - '0';
     }
   }
   return 0;
 }
 
-uint8_t set_board_file(board_t *board, char *filename)
+uint8_t set_board_file(board_t *board, const char *filename)
 {
   FILE *file = fopen(filename, "r");
   if (file == NULL)
