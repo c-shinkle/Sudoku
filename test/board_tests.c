@@ -21,13 +21,6 @@ void init_board_test()
   CU_PASS("All of board.grid's values were initialized to 0");
 }
 
-void getter_board_test()
-{
-  board_t board;
-  init_board(&board);
-  CU_ASSERT_EQUAL(get_cell_val(&board, 0, 0), 0);
-}
-
 void print_row_test()
 {
   board_t board;

@@ -14,7 +14,6 @@ void add_board_tests(CU_pSuite *suite)
 {
   CU_ADD_TEST(*suite, pass_test);
   CU_ADD_TEST(*suite, init_board_test);
-  CU_ADD_TEST(*suite, getter_board_test);
   CU_ADD_TEST(*suite, print_blank_row_test);
   CU_ADD_TEST(*suite, print_row_test);
   CU_ADD_TEST(*suite, print_board_test0);
@@ -27,7 +26,7 @@ void add_board_tests(CU_pSuite *suite)
 void add_solver_tests(CU_pSuite *suite)
 {
   CU_ADD_TEST(*suite, populate_possible_values_test);
-  CU_ADD_TEST(*suite, naive_solver_test);
+  CU_ADD_TEST(*suite, naive_solver_test_1);
 }
 
 int main(int argc, char **argv)

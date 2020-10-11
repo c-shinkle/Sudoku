@@ -17,7 +17,7 @@ uint8_t naive_solver(board_t *board)
   {
     for (col = 0; col < BOARD_SIZE; col++)
     {
-      if (get_cell_val(board, row, col) == 0)
+      if (board->grid[row][col].value == 0)
       {
         uint8_t val = find_possibility(board, row, col);
         if (val == 0)

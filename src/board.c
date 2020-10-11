@@ -23,11 +23,6 @@ void set_cell_val(board_t *board, int row, int col, int val)
   board->grid[row][col].value = val;
 }
 
-int get_cell_val(board_t *board, int row, int col)
-{
-  return board->grid[row][col].value;
-}
-
 uint8_t cell_has_poss(cell_t *cell, uint8_t val)
 {
   return (cell->poss >> (val - 1)) & 1;
@@ -38,7 +33,7 @@ const char *print_row(board_t *board, char *buffer, uint8_t row)
   uint8_t col, i;
   for (col = i = 0; i < 13; i++)
   {
-    buffer[i] = i % 4 == 0 ? '|' : get_cell_val(board, row, col++) + '0';
+    buffer[i] = i % 4 == 0 ? '|' : board->grid[row][col++].value + '0';
   }
   buffer[13] = '\n';
   buffer[14] = 0;
@@ -78,15 +73,15 @@ uint8_t set_board_string(board_t *board, const char *str)
   return 0;
 }
 
-int set_board_file(board_t *board, char *filename)
+uint8_t set_board_file(board_t *board, char *filename)
 {
   FILE *file = fopen(filename, "r");
-  char board_buffer[BOARD_SIZE * BOARD_SIZE + 1];
-  char line_buffer[BOARD_SIZE + 1];
-  int i;
-
   if (file == NULL)
     return 1;
+
+  char board_buffer[BOARD_SIZE * BOARD_SIZE + 1];
+  char line_buffer[BOARD_SIZE + 1];
+  uint8_t i;
 
   board_buffer[0] = 0;
   for (i = 0; i < BOARD_SIZE; i++)

@@ -21,7 +21,7 @@ typedef struct board_t
 void init_board(board_t *board);
 void set_cell_val(board_t *board, int row, int col, int val);
 uint8_t set_board_string(board_t *board, const char *values);
-int set_board_file(board_t *board, char *filename);
+uint8_t set_board_file(board_t *board, char *filename);
 int get_cell_val(board_t *board, int row, int col);
 uint8_t cell_has_poss(cell_t *cell, uint8_t val);
 const char *print_row(board_t *board, char *buffer, uint8_t row);

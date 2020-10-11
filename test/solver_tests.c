@@ -5,25 +5,14 @@
 #include "../src/solver.h"
 #include "solver_tests.h"
 
-void naive_solver_test()
+void naive_solver_test_1()
 {
   board_t actual_board;
   init_board(&actual_board);
-  char *values =
-      "008931427"
-      "432678915"
-      "917245683"
-      "296354817"
-      "081762349"
-      "743819256"
-      "129583764"
-      "865497132"
-      "374126598";
-  set_board_string(&actual_board, values);
-
+  if (set_board_file(&actual_board, "res/test_board_1"))
+    CU_FAIL("Failed to set board");
   board_t expected_board;
   init_board(&expected_board);
-  char buffer[ROW_LENGTH * COL_LENGTH + 1];
   char *solution =
       "658931427"
       "432678915"
@@ -35,12 +24,13 @@ void naive_solver_test()
       "865497132"
       "374126598";
   set_board_string(&expected_board, solution);
+  char buffer[ROW_LENGTH * COL_LENGTH + 1];
   char *expected_printout = print_board(&expected_board, buffer);
 
   naive_solver(&actual_board);
 
   char *actual_printout = print_board(&actual_board, buffer);
-  CU_ASSERT_STRING_EQUAL(expected_printout, actual_printout);
+  CU_ASSERT_STRING_EQUAL(actual_printout, expected_printout);
 }
 
 void populate_possible_values_test()

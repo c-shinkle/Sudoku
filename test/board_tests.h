@@ -1,5 +1,4 @@
 void init_board_test();
-void getter_board_test();
 void print_row_test();
 void print_blank_row_test();
 void print_board_test0();
