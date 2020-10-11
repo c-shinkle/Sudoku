@@ -18,11 +18,6 @@ void init_board(board_t *board)
   }
 }
 
-void set_cell_val(board_t *board, int row, int col, int val)
-{
-  board->grid[row][col].value = val;
-}
-
 uint8_t cell_has_poss(cell_t *cell, uint8_t val)
 {
   return (cell->poss >> (val - 1)) & 1;
@@ -57,17 +52,23 @@ char *print_board(board_t *board, char board_buffer[])
   return board_buffer;
 }
 
-uint8_t set_board_string(board_t *board, const char *str)
+uint8_t set_board_string(board_t *board, char values[])
 {
-  if (strlen(str) != BOARD_SIZE * BOARD_SIZE)
+  if (strlen(values) != BOARD_SIZE * BOARD_SIZE)
     return 1;
 
-  uint8_t row, col;
+  uint8_t row, col, i;
+  char board_data[BOARD_SIZE][BOARD_SIZE];
+  for (i = 0; i < BOARD_SIZE * BOARD_SIZE; i++)
+  {
+    board_data[i / BOARD_SIZE][i % BOARD_SIZE] = values[i];
+  }
+
   for (row = 0; row < BOARD_SIZE; row++)
   {
     for (col = 0; col < BOARD_SIZE; col++)
     {
-      set_cell_val(board, row, col, str[row * BOARD_SIZE + col] - '0');
+      board->grid[row][col].value = board_data[row][col] - '0';
     }
   }
   return 0;

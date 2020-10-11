@@ -24,11 +24,13 @@ void init_board_test()
 void print_row_test()
 {
   board_t board;
+  char buffer[ROW_LENGTH + 1];
+  uint8_t i;
   init_board(&board);
-  char buffer[14];
-  int i;
   for (i = 0; i < BOARD_SIZE; i++)
-    set_cell_val(&board, 0, i, i + 1);
+  {
+    board.grid[0][i].value = i + 1;
+  }
   const char *result = print_row(&board, buffer, 0);
   CU_ASSERT_STRING_EQUAL(result, "|123|456|789|\n");
 }
@@ -72,7 +74,7 @@ void print_board_test1()
   uint8_t i;
   for (i = 0; i < BOARD_SIZE; i++)
   {
-    set_cell_val(&board, i, i, i + 1);
+    board.grid[i][i].value = i + 1;
   }
   const char *expected_printout =
       "-------------\n"

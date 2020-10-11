@@ -26,7 +26,7 @@ uint8_t naive_solver(board_t *board)
         }
         else
         {
-          set_cell_val(board, row, col, val);
+          board->grid[row][col].value = val;
         }
       }
     }
@@ -94,7 +94,7 @@ void optimized_solver(board_t *board)
       uint8_t poss_count = count_poss(poss);
       if (poss_count == 1)
       {
-        set_cell_val(board, row, col, get_val_from_poss(poss));
+        board->grid[row][col].value = get_val_from_poss(poss);
         update_influenced_cells(board, row, col);
       }
     }
